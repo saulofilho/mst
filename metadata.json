@@ -1,0 +1,6 @@
+{
+  "name": "Terra & Alimento: Feiras, Agroecologia e Reforma Agrária MST",
+  "description": "Localizador de feiras e Armazéns do Campo do MST, mapa interativo, receitas agroecológicas, história e conquistas da Reforma Agrária e canal de apoio e segurança aos assentados.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
