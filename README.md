@@ -174,6 +174,10 @@ npm run deploy
   - Consulta de andamento de protocolos.
   - Guia emergencial de segurança no campo e telefones oficiais.
 
+* 📬 **Boletim Popular da Terra (Newsletter)**:
+  - Assinatura direta no rodapé para receber o calendário de feiras, novas safras de arroz orgânico, receitas sazonais e informes das conquistas camponesas.
+  - Validação de e-mail e persistência local para controle de inscrição.
+
 ---
 
 ## 📜 Licença e Solidariedade
