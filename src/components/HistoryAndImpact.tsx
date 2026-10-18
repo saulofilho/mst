@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HISTORICAL_MILESTONES, POSITIVE_FACTS } from '../data/history';
+import { heroAgriculture } from '../assets/images';
 import { 
   BookOpen, 
   Award, 
@@ -144,7 +145,7 @@ export const HistoryAndImpact: React.FC = () => {
 
           <div className="lg:col-span-6 h-full min-h-[320px] lg:min-h-[460px] relative">
             <img
-              src="/src/assets/images/mst_hero_agriculture_1792244756115.jpg"
+              src={heroAgriculture}
               alt="Colheita agroecológica do arroz orgânico"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover"

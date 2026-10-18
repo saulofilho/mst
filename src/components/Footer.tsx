@@ -167,6 +167,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button
+                  onClick={() => onNavigate('beneficios')}
+                  className="hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-red-500" />
+                  <span>Benefícios Sociais do MST</span>
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onNavigate('receitas')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >

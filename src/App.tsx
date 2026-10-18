@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { InteractiveMap } from './components/InteractiveMap';
+import { MSTBenefits } from './components/MSTBenefits';
 import { RecipesSection } from './components/RecipesSection';
 import { HistoryAndImpact } from './components/HistoryAndImpact';
 import { SupportSection } from './components/SupportSection';
@@ -18,6 +19,8 @@ export default function App() {
     const element = document.getElementById(
       id === 'mapa'
         ? 'mapa-feiras'
+        : id === 'beneficios'
+        ? 'beneficios-mst'
         : id === 'receitas'
         ? 'receitas-organicas'
         : id === 'historia'
@@ -60,6 +63,7 @@ export default function App() {
           onExploreMarkets={() => scrollToSection('mapa')}
           onExploreRecipes={() => scrollToSection('receitas')}
           onExploreHistory={() => scrollToSection('historia')}
+          onExploreBenefits={() => scrollToSection('beneficios')}
         />
 
         {/* Core Feature 1: Interactive Map & Market Locator */}
@@ -69,7 +73,13 @@ export default function App() {
           onSelectRecipeProduct={handleLocateMarketForProduct}
         />
 
-        {/* Core Feature 2: Organic Recipes with MST Farm Products */}
+        {/* Core Feature 2: All Benefits of MST (Social, Ecological & Economic) */}
+        <MSTBenefits
+          onGoToMarkets={() => scrollToSection('mapa')}
+          onGoToRecipes={() => scrollToSection('receitas')}
+        />
+
+        {/* Core Feature 3: Organic Recipes with MST Farm Products */}
         <RecipesSection
           onLocateMarketForProduct={handleLocateMarketForProduct}
         />

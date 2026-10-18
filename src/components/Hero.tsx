@@ -1,16 +1,19 @@
 import React from 'react';
-import { MapPin, UtensilsCrossed, ArrowRight, ShieldCheck, Wheat, Trees, HeartHandshake } from 'lucide-react';
+import { MapPin, UtensilsCrossed, ArrowRight, ShieldCheck, Wheat, Sparkles } from 'lucide-react';
+import { heroAgriculture } from '../assets/images';
 
 interface HeroProps {
   onExploreMarkets: () => void;
   onExploreRecipes: () => void;
   onExploreHistory: () => void;
+  onExploreBenefits?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   onExploreMarkets,
   onExploreRecipes,
-  onExploreHistory
+  onExploreHistory,
+  onExploreBenefits
 }) => {
   return (
     <div className="bg-[#FAF8F5] border-b border-stone-200">
@@ -40,15 +43,25 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={onExploreMarkets}
-                className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs hover:shadow transition-all flex items-center gap-2"
+                className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs hover:shadow transition-all flex items-center gap-2 cursor-pointer"
               >
                 <MapPin className="w-4 h-4" />
                 <span>Encontrar Feiras & Armazéns</span>
               </button>
 
+              {onExploreBenefits && (
+                <button
+                  onClick={onExploreBenefits}
+                  className="px-5 py-3.5 text-xs sm:text-sm font-semibold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-red-700" />
+                  <span>Benefícios Sociais do MST</span>
+                </button>
+              )}
+
               <button
                 onClick={onExploreRecipes}
-                className="px-5 py-3.5 text-xs sm:text-sm font-semibold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl shadow-xs transition-colors flex items-center gap-2"
+                className="px-5 py-3.5 text-xs sm:text-sm font-semibold text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <UtensilsCrossed className="w-4 h-4 text-stone-600" />
                 <span>Receitas Agroecológicas</span>
@@ -56,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({
 
               <button
                 onClick={onExploreHistory}
-                className="px-4 py-3.5 text-xs sm:text-sm font-semibold text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1.5"
+                className="px-4 py-3.5 text-xs sm:text-sm font-semibold text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Nossa História</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -79,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Right Column: Hero Visual Image Anchor */}
           <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-sm border border-stone-200/80 min-h-[360px] lg:h-full">
             <img
-              src="/src/assets/images/mst_hero_agriculture_1792244756115.jpg"
+              src={heroAgriculture}
               alt="Famílias camponesas colhendo arroz orgânico na lavoura da reforma agrária"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover lg:h-full"
@@ -96,52 +109,80 @@ export const Hero: React.FC<HeroProps> = ({
         </div>
 
         {/* 4-Column KPI Strip in a full-width row below the hero split */}
-        <div className="mt-12 pt-8 border-t border-stone-200 grid grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-red-700 tabular-nums">
-              1º Lugar
-            </div>
-            <div className="text-xs font-bold text-stone-900 mt-1">
-              Arroz Orgânico América Latina
-            </div>
-            <div className="text-[11px] text-stone-500 mt-0.5">
-              Certificação internacional e auditoria FAO
-            </div>
+        <div className="mt-12 pt-8 border-t border-stone-200">
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+              Conquistas e Números Auditados da Reforma Agrária Popular
+            </span>
+            {onExploreBenefits && (
+              <button
+                onClick={onExploreBenefits}
+                className="text-xs text-red-700 hover:text-red-800 font-bold inline-flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <span>Ver todos os 15 benefícios comprovados</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div 
+              onClick={onExploreBenefits}
+              className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs hover:border-red-300 hover:shadow-sm transition-all cursor-pointer group"
+            >
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-red-700 tabular-nums group-hover:scale-102 transition-transform">
+                1º Lugar
+              </div>
+              <div className="text-xs font-bold text-stone-900 mt-1">
+                Arroz Orgânico América Latina
+              </div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                Certificação internacional e auditoria FAO
+              </div>
+            </div>
 
-          <div className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-emerald-700 tabular-nums">
-              +25 Milhões
+            <div 
+              onClick={onExploreBenefits}
+              className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs hover:border-emerald-300 hover:shadow-sm transition-all cursor-pointer group"
+            >
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-emerald-700 tabular-nums group-hover:scale-102 transition-transform">
+                +25 Milhões
+              </div>
+              <div className="text-xs font-bold text-stone-900 mt-1">
+                Árvores Nativas Plantadas
+              </div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                Plano de recuperação dos 6 biomas
+              </div>
             </div>
-            <div className="text-xs font-bold text-stone-900 mt-1">
-              Árvores Nativas Plantadas
-            </div>
-            <div className="text-[11px] text-stone-500 mt-0.5">
-              Plano de recuperação dos 6 biomas
-            </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-amber-600 tabular-nums">
-              +9.000 Toneladas
+            <div 
+              onClick={onExploreBenefits}
+              className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs hover:border-amber-300 hover:shadow-sm transition-all cursor-pointer group"
+            >
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-amber-600 tabular-nums group-hover:scale-102 transition-transform">
+                +9.000 Toneladas
+              </div>
+              <div className="text-xs font-bold text-stone-900 mt-1">
+                Alimentos Doados à População
+              </div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                Solidariedade em pandemias e enchentes
+              </div>
             </div>
-            <div className="text-xs font-bold text-stone-900 mt-1">
-              Alimentos Doados à População
-            </div>
-            <div className="text-[11px] text-stone-500 mt-0.5">
-              Solidariedade em pandemias e enchentes
-            </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tabular-nums">
-              160+
-            </div>
-            <div className="text-xs font-bold text-stone-900 mt-1">
-              Cooperativas Agropecuárias
-            </div>
-            <div className="text-[11px] text-stone-500 mt-0.5">
-              120 agroindústrias comunitárias no país
+            <div 
+              onClick={onExploreBenefits}
+              className="p-4 bg-white rounded-2xl border border-stone-200 shadow-xs hover:border-stone-400 hover:shadow-sm transition-all cursor-pointer group"
+            >
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tabular-nums group-hover:scale-102 transition-transform">
+                160+
+              </div>
+              <div className="text-xs font-bold text-stone-900 mt-1">
+                Cooperativas Agropecuárias
+              </div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                120 agroindústrias comunitárias no país
+              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Recipe } from '../types';
+import { culinaryDish, armazemCampo, heroAgriculture, agroecologyCoop } from '../assets/images';
 
 export const RECIPES_DATA: Recipe[] = [
   {
@@ -53,7 +54,7 @@ export const RECIPES_DATA: Recipe[] = [
       'Sirva a feijoada borbulhante em louça de barro acompanhada do arroz, couve, farofa e fatias de laranja doce.'
     ],
     agroTip: 'A água do remolho inicial do feijão pode ser descartada ou usada para regar as plantas do jardim, pois ajuda a reduzir o fitato e os gases na digestão!',
-    image: '/src/assets/images/mst_culinary_dish_1792244757113.jpg'
+    image: culinaryDish
   },
   {
     id: 'arroz-carreteiro-organico',
@@ -99,7 +100,7 @@ export const RECIPES_DATA: Recipe[] = [
       'Desligue o fogo, salpique farto cheiro-verde e deixe descansar tampado por 5 minutos antes de soltar com um garfo.'
     ],
     agroTip: 'Aproveite a casca da abóbora cabotiá: ela é macia, saborosa e rica em betacaroteno e fibras quando colhida sem veneno.',
-    image: '/src/assets/images/mst_armazem_campo_1792244756340.jpg'
+    image: armazemCampo
   },
   {
     id: 'moqueca-pupunha-banana',
@@ -147,7 +148,7 @@ export const RECIPES_DATA: Recipe[] = [
       'Sirva com arroz branco soltinho Terra Livre e farofa de farinha d’água da Amazônia.'
     ],
     agroTip: 'O cultivo da pupunha em sistemas agroflorestais (SAFs) protege encostas contra erosão e gera renda sustentável para dezenas de famílias assentadas.',
-    image: '/src/assets/images/mst_hero_agriculture_1792244756115.jpg'
+    image: heroAgriculture
   },
   {
     id: 'polenta-crioula-milho',
@@ -191,7 +192,7 @@ export const RECIPES_DATA: Recipe[] = [
       'Despeje a polenta quente numa travessa, salpique metade do queijo, cubra com o molho de tomates e finalize com o queijo restante para derreter com o calor.'
     ],
     agroTip: 'As casas de sementes crioulas do MST guardam mais de 40 variedades de milhos nativos que resistem naturalmente a secas e pragas locais.',
-    image: '/src/assets/images/mst_armazem_campo_1792244756340.jpg'
+    image: armazemCampo
   },
   {
     id: 'bolo-mandioca-mel',
@@ -236,7 +237,7 @@ export const RECIPES_DATA: Recipe[] = [
       'Deixe amornar antes de cortar em quadrados. Fica irresistível acompanhado de café passado na hora.'
     ],
     agroTip: 'A mandioca é a raiz soberana da alimentação brasileira: pode ser aproveitada integralmente, e suas folhas bem cozidas rendem a tradicional maniçoba rica em ferro.',
-    image: '/src/assets/images/mst_culinary_dish_1792244757113.jpg'
+    image: culinaryDish
   },
   {
     id: 'cafe-guaii-especiarias',
@@ -278,6 +279,6 @@ export const RECIPES_DATA: Recipe[] = [
       'Sirva bem quentinho em canecas esmaltadas ou de cerâmica artesanal.'
     ],
     agroTip: 'A borra de café usada é um excelente adubo rico em nitrogênio para hortas domésticas e vasos de plantas ornamentais!',
-    image: '/src/assets/images/mst_armazem_campo_1792244756340.jpg'
+    image: armazemCampo
   }
 ];

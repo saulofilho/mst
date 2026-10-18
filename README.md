@@ -154,6 +154,13 @@ npm run deploy
   - Link direto para o WhatsApp dos Armazéns.
   - Salvamento de locais favoritos no `localStorage`.
 
+* ✨ **Painel Completo de Benefícios do MST (`MSTBenefits`)**:
+  - 15 benefícios concretos documentados e auditados com fontes oficiais (FAO/ONU, IBGE, CONAB, MEC, PRONERA, IRGA, Embrapa, Observatório do Clima).
+  - Navegação por 6 pilares estruturais com contadores de itens: *Soberania Alimentar*, *Meio Ambiente & Clima*, *Solidariedade Ativa*, *Educação Popular*, *Economia & Cooperativas* e *Democracia & Direitos*.
+  - Busca textual em tempo real por palavras-chave (arroz, escolas, mudas, doações, nascentes, livros, etc.).
+  - Matriz Comparativa Concreta: *Reforma Agrária Popular (Agroecologia)* versus *Latifúndio Monocultor (Agroquímico)* em 6 dimensões vitais (destino da comida, uso de venenos, geração de empregos, preservação de águas, soberania de sementes e tecido comunitário).
+  - Ações diretas integradas ao mapa de feiras e às receitas da terra.
+
 * 🍲 **Receitas da Terra**:
   - Pratos elaborados com os produtos colhidos pelas cooperativas.
   - Checklist interativo de despensa.

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, MapPin, ShieldAlert, BookOpen, UtensilsCrossed, HeartHandshake } from 'lucide-react';
+import { Menu, X, MapPin, ShieldAlert, BookOpen, UtensilsCrossed, HeartHandshake, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
@@ -16,6 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navItems = [
     { id: 'mapa', label: 'Feiras & Mapa', icon: MapPin },
+    { id: 'beneficios', label: 'Benefícios do MST', icon: Sparkles },
     { id: 'receitas', label: 'Receitas da Terra', icon: UtensilsCrossed },
     { id: 'historia', label: 'História & Conquistas', icon: BookOpen },
     { id: 'apoiar', label: 'Como Apoiar', icon: HeartHandshake },
