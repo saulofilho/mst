@@ -491,6 +491,9 @@ export const ReportChannel: React.FC = () => {
                       </a>
                     </div>
                     <div className="text-[11px] text-stone-500 mt-0.5">{hotline.role}</div>
+                    {'address' in hotline && (
+                      <div className="text-[11px] text-stone-500 mt-0.5">📍 {hotline.address}</div>
+                    )}
                     <div className="flex items-center gap-3 mt-1.5 text-xs font-semibold text-red-700">
                       <a href={`tel:${hotline.phone.replace(/\D/g, '')}`} className="hover:underline">
                         📞 {hotline.phone}

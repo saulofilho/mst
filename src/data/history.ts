@@ -4,28 +4,28 @@ export const HISTORICAL_MILESTONES: HistoricalMilestone[] = [
   {
     year: '1984',
     title: '1º Encontro Nacional em Cascavel (PR)',
-    subtitle: 'O Nascimento do Movimento dos Sem Terra',
+    subtitle: 'Fundação Formal do Movimento dos Trabalhadores Rurais Sem Terra',
     location: 'Cascavel, Paraná',
-    description: 'Trabalhadores rurais, posseiros, boias-frias e atingidos por barragens fundam formalmente o MST. Sob a bandeira "A terra para quem nela trabalha", o movimento une agricultores desapropriados e desterritorializados pela modernização conservadora da ditadura militar.',
-    keyPoint: 'Unificação nacional da luta camponesa com foco na democratização da terra e produção de alimentos.',
+    description: 'Trabalhadores rurais, posseiros, meeiros, atingidos por barragens e boias-frias reuniram-se em Cascavel para fundar o MST. Sob o lema "Terra para quem nela trabalha", unificaram lutas antes dispersas para exigir a democratização do solo brasileiro.',
+    keyPoint: 'Unificação nacional da luta camponesa pela desapropriação de latifúndios improdutivos.',
     tag: 'Fundação'
   },
   {
     year: '1988',
     title: 'A Constituição Cidadã e a Função Social da Terra',
-    subtitle: 'Artigo 184 e os Marcos Constitucionais',
+    subtitle: 'Artigos 184 a 189 da Carta Magna',
     location: 'Brasília, DF',
-    description: 'Após intensa mobilização popular camponesa e indígena durante a Assembleia Nacional Constituinte, a Carta Magna brasileira estabelece que a propriedade da terra deve cumprir sua função social: produzir racionalmente, respeitar o meio ambiente e as leis trabalhistas.',
-    keyPoint: 'Desapropriação constitucional de latifúndios improdutivos para fins de Reforma Agrária.',
+    description: 'Após intensa pressão de caravanas populares camponesas na Assembleia Nacional Constituinte, a Constituição de 1988 consagrou que a propriedade da terra é vinculada à sua função social: produzir racionalmente, respeitar a legislação trabalhista e preservar os ecossistemas.',
+    keyPoint: 'Fundamento jurídico constitucional que legitima a desapropriação de terras improdutivas para Reforma Agrária.',
     tag: 'Legislação'
   },
   {
     year: '1996',
-    title: 'O Massacre de Eldorado do Carajás',
-    subtitle: 'Memória, Justiça e o 17 de Abril',
+    title: 'Massacre de Eldorado do Carajás',
+    subtitle: 'Memória, Justiça e o Dia Mundial da Luta Camponesa',
     location: 'Eldorado do Carajás, Pará',
-    description: 'O assassinato de 19 camponeses sem terra choca o planeta. A data de 17 de abril é instituída internacionalmente pela Via Campesina como o "Dia Mundial da Luta Camponesa", consolidando o apoio global aos direitos humanos no campo brasileiro.',
-    keyPoint: 'Reconhecimento global da urgência da Reforma Agrária e repúdio à violência latifundiária.',
+    description: 'O assassinato de 19 camponeses pela Polícia Militar do Pará na rodovia PA-150 repercutiu globalmente. A data de 17 de abril foi instituída pela Via Campesina Internacional como o Dia Mundial da Luta Camponesa em defesa dos direitos humanos.',
+    keyPoint: 'Marco internacional de solidariedade aos direitos humanos e repúdio à violência latifundiária.',
     tag: 'Direitos Humanos'
   },
   {
@@ -33,45 +33,45 @@ export const HISTORICAL_MILESTONES: HistoricalMilestone[] = [
     title: 'Inauguração da Escola Nacional Florestan Fernandes (ENFF)',
     subtitle: 'Educação Popular, Ciência e Agroecologia',
     location: 'Guararema, São Paulo',
-    description: 'Construída coletivamente com tijolos de solo-cimento moldados pelas mãos de mais de 1.000 voluntários de todo o país, a ENFF torna-se centro mundial de formação política, ambiental, agroecológica e filosófica para movimentos sociais da América Latina e do mundo.',
-    keyPoint: 'Formação científica e pedagógica com direito a bibliotecas, laboratórios e residência estudantil.',
-    tag: 'Educação'
+    description: 'Erguida com tijolos de solo-cimento confeccionados por mais de 1.000 voluntários de brigadas populares, a ENFF consolidou-se como centro internacional de formação política, ambiental e técnica para movimentos sociais de diversos países.',
+    keyPoint: 'Espaço com biblioteca de 40 mil títulos, laboratórios de informática, hortas agroecológicas e alojamentos.',
+    tag: 'Educação Popular'
   },
   {
     year: '2010',
-    title: 'Liderança na Produção de Arroz Agroecológico',
-    subtitle: 'O Maior Produtor da América Latina',
+    title: 'Consolidação como Maior Produtor de Arroz Orgânico',
+    subtitle: 'Liderança Certificada na América Latina',
     location: 'Região Metropolitana de Porto Alegre, RS',
-    description: 'A transição agroecológica nas cooperativas gaúchas atinge maturidade histórica: o MST é formalmente reconhecido pela FAO (Organização das Nações Unidas para a Alimentação e a Agricultura) e pelo IRGA como o maior produtor de arroz orgânico certificado de toda a América Latina.',
-    keyPoint: 'Mais de 16 mil hectares preservados e milhões de quilos de arroz livre de veneno chegando à mesa popular.',
+    description: 'A transição agroecológica nas cooperativas de assentamentos gaúchos (como COOPAT em Nova Santa Rita) atinge escala continental: a produção de arroz livre de agrotóxicos é reconhecida pelo IRGA e pela FAO/ONU como a maior de toda a América Latina.',
+    keyPoint: 'Mais de 16 mil hectares de várzeas preservadas e milhões de quilos de arroz agroecológico Terra Livre.',
     tag: 'Soberania Alimentar'
   },
   {
     year: '2016',
-    title: 'Abertura do Primeiro Armazém do Campo',
-    subtitle: 'A Ponte entre o Campo Agroecológico e a Cidade',
-    location: 'Campos Elíseos, São Paulo',
-    description: 'Inauguração da rede de lojas físicas e culturais Armazém do Campo, rompendo intermediários especulativos e garantindo que alimentos sem veneno e de alta qualidade cheguem aos centros urbanos a preços populares e justos.',
-    keyPoint: 'Hoje são mais de 40 lojas físicas, cafés culturais e pontos de abastecimento em 14 capitais.',
-    tag: 'Comercialização'
+    title: 'Criação da Rede de Armazéns do Campo',
+    subtitle: 'A Ponte Direta entre o Campo Agroecológico e a Cidade',
+    location: 'São Paulo (Al. Nothman, 806)',
+    description: 'Inauguração da primeira unidade da rede Armazém do Campo, rompendo intermediários para oferecer alimentos agroecológicos sem veneno a preços justos. A rede hoje está presente em mais de 14 capitais e dezenas de cidades brasileiras.',
+    keyPoint: 'Lojas físicas, cafés culturais, livrarias e empórios de comercialização direta popular.',
+    tag: 'Comercialização Justa'
   },
   {
     year: '2020',
     title: 'Plano Nacional Plantar Árvores, Produzir Alimentos Saudáveis',
     subtitle: 'Meta de 100 Milhões de Árvores Nativas',
     location: 'Todos os Biomas Brasileiros',
-    description: 'Lançamento de uma das maiores iniciativas de restauração ecológica comunitária do planeta. Em meio à emergência climática, assentamentos implantam viveiros de mudas nativas, recuperam nascentes e consorciam agroflorestas biodinâmicas.',
-    keyPoint: 'Mais de 25 milhões de árvores nativas plantadas e 5.000 hectares de áreas degradadas recuperadas.',
-    tag: 'Agroecologia'
+    description: 'Lançamento do plano nacional de recuperação ambiental. Em resposta às queimadas e à crise climática, o movimento implantou viveiros populares comunitários para restaurar matas ciliares, nascentes e implementar sistemas agroflorestais (SAFs).',
+    keyPoint: 'Mais de 25 milhões de mudas de espécies nativas e frutíferas já plantadas.',
+    tag: 'Agroecologia & Clima'
   },
   {
     year: '2024-2026',
-    title: '40 Anos: Reforma Agrária Popular e Combate à Fome',
-    subtitle: 'Alimentar o Povo com Comida de Verdade',
+    title: '40 Anos de Reforma Agrária Popular e Cozinhas Solidárias',
+    subtitle: 'Solidariedade Permanente e Combate à Fome',
     location: 'Nacional',
-    description: 'Ao celebrar quatro décadas de existência, o MST reafirma que a Reforma Agrária Popular não é apenas dividir terra: é produzir comida saudável para quem passa fome nas cidades, defender a água e o clima, alfabetizar comunidades e democratizar o Brasil.',
-    keyPoint: 'Solidariedade ativa permanente com cozinhas solidárias e doações humanitárias contínuas.',
-    tag: 'Presente & Futuro'
+    description: 'Ao celebrar quatro décadas, o MST reafirma seu compromisso com a alimentação saudável da população brasileira. Através de redes de cozinhas solidárias e doações contínuas em tragédias climáticas (como nas enchentes do RS), coloca a solidariedade como princípio basilar.',
+    keyPoint: 'Mais de 9.000 toneladas de alimentos saudáveis doados a famílias em situação de vulnerabilidade.',
+    tag: 'Solidariedade Ativa'
   }
 ];
 
@@ -81,7 +81,7 @@ export const POSITIVE_FACTS: PositiveFact[] = [
     title: 'Maior Produtor de Arroz Orgânico da América Latina',
     stat: '1º Lugar',
     statLabel: 'Há mais de 10 safras consecutivas no continente',
-    description: 'Certificado por auditorias internacionais e pelo IRGA, o MST colhe anualmente mais de 16.000 toneladas de arroz agroecológico (integral, agulhinha, vermelho e preto) através da cooperativa COOPAT e associadas no Rio Grande do Sul.',
+    description: 'Certificado por auditorias da IBD e pelo Instituto Rio Grandense do Arroz (IRGA), o MST produz e industrializa mais de 16.000 toneladas de arroz agroecológico (agulhinha, integral, vermelho e preto) através da cooperativa COOPAT e associadas no RS.',
     citation: 'Fonte: FAO / Instituto Rio Grandense do Arroz (IRGA)',
     category: 'alimento'
   },
@@ -90,43 +90,43 @@ export const POSITIVE_FACTS: PositiveFact[] = [
     title: 'Solidariedade em Ação Humanitária',
     stat: '+9.000',
     statLabel: 'Toneladas de alimentos saudáveis doados',
-    description: 'Durante a pandemia de Covid-19, estiagens no Nordeste e enchentes devastadoras no Rio Grande do Sul, o MST mobilizou suas cooperativas e cozinhas solidárias urbanas para fornecer marmitas nutritivas e cestas de alimentos frescos a quem mais precisa.',
+    description: 'Durante a pandemia de Covid-19 e as históricas enchentes no Rio Grande do Sul, cooperativas e acampamentos do MST mobilizaram doações diretas de arroz, feijão, hortaliças e marmitas da terra preparadas em cozinhas solidárias.',
     citation: 'Fonte: Campanha Nacional de Solidariedade do MST',
     category: 'solidariedade'
   },
   {
     id: 'arvores-biodiversidade',
-    title: 'Reflorestamento e Preservação de Biomas',
+    title: 'Recuperação Ambiental e Viveiros Comunitários',
     stat: '+25 Mi',
-    statLabel: 'Árvores nativas e frutíferas plantadas',
-    description: 'Através do Plano "Plantar Árvores, Produzir Alimentos Saudáveis", o movimento mantém dezenas de viveiros populares comunitários, restaurando matas ciliares, nascentes de água e plantando sistemas agroflorestais em todo o Brasil.',
-    citation: 'Fonte: Plano Nacional de Reflorestamento Popular',
+    statLabel: 'Mudas de árvores nativas e frutíferas plantadas',
+    description: 'Através do Plano "Plantar Árvores, Produzir Alimentos Saudáveis", foram estruturados dezenas de viveiros populares nos biomas Cerrado, Mata Atlântica, Caatinga, Amazônia e Pampa, recuperando nascentes e matas ciliares degradadas.',
+    citation: 'Fonte: Setor de Meio Ambiente do MST',
     category: 'ecologia'
   },
   {
     id: 'cooperativismo-popular',
-    title: 'Rede de Agroindústrias e Cooperativas',
+    title: 'Rede de Agroindústrias e Cooperativas Agropecuárias',
     stat: '160+',
-    statLabel: 'Cooperativas de camponeses ativas no país',
-    description: 'O MST organiza mais de 160 cooperativas de produção, 120 agroindústrias comunitárias de laticínios, beneficiamento de café, grãos, conservas e mel, além de 1.900 associações produtivas registradas formalmente.',
-    citation: 'Fonte: Setor de Produção e Cooperativismo (CONAB/MST)',
+    statLabel: 'Cooperativas de pequenos produtores ativas no país',
+    description: 'O movimento organiza mais de 160 cooperativas de produção, 120 agroindústrias comunitárias de laticínios, café, beneficiamento de grãos, sucos, mel e conservas, além de 1.900 associações produtivas legalmente constituídas.',
+    citation: 'Fonte: Confederação das Cooperativas de Reforma Agrária do Brasil (CONCRAB)',
     category: 'alimento'
   },
   {
     id: 'educacao-campo',
-    title: 'Educação Popular e Erradicação do Analfabetismo',
+    title: 'Educação do Campo e Erradicação do Analfabetismo',
     stat: '2.000+',
-    statLabel: 'Escolas públicas construídas nos assentamentos',
-    description: 'Garantia de acesso à educação pública com identidade camponesa. Mais de 50.000 jovens e adultos alfabetizados através do método "Sim, Eu Posso" e milhares de camponeses formados em agronomia, veterinária e pedagogia pelo PRONERA em universidades públicas.',
+    statLabel: 'Escolas públicas erguidas em assentamentos',
+    description: 'Parcerias com o PRONERA (Programa Nacional de Educação na Reforma Agrária) e universidades públicas já formaram milhares de técnicos agrícolas, agrônomos, veterinários, advogados e educadores populares, além de alfabetizar mais de 50 mil adultos com o método "Sim, Eu Posso".',
     citation: 'Fonte: Setor de Educação do MST / PRONERA',
     category: 'educacao'
   },
   {
     id: 'sementes-crioulas',
-    title: 'Bancos e Guardiões de Sementes Crioulas',
+    title: 'Rede Bionatur e Guardiões de Sementes Crioulas',
     stat: '40+',
-    statLabel: 'Variedades ancestrais protegidas da transgenia',
-    description: 'Camponeses do MST preservam e multiplicam sementes tradicionais de milho, feijão, arroz, hortaliças e adubos verdes, impedindo a perda genética provocada pelas grandes corporações multinacionais de transgênicos.',
+    statLabel: 'Variedades ancestrais preservadas sem transgenia',
+    description: 'Através da Cooperativa Bionatur (sediada em Candiota/RS) e de casas de sementes comunitárias, camponeses multiplicam sementes agroecológicas de milho, feijão, hortaliças e adubação verde, combatendo o monopólio corporativo de transgênicos.',
     citation: 'Fonte: Rede Bionatur de Sementes Agroecológicas',
     category: 'ecologia'
   }
@@ -134,38 +134,43 @@ export const POSITIVE_FACTS: PositiveFact[] = [
 
 export const SECURITY_HOTLINES = [
   {
-    name: 'Comissão Pastoral da Terra (CPT)',
-    role: 'Monitoramento Nacional de Conflitos no Campo & Apoio Jurídico',
+    name: 'Comissão Pastoral da Terra (CPT Nacional)',
+    role: 'Monitoramento de Conflitos no Campo & Assessoria Jurídica Popular',
     phone: '(62) 4008-6400',
     email: 'cpt@cptnacional.org.br',
-    site: 'https://www.cptnacional.org.br'
+    site: 'https://www.cptnacional.org.br',
+    address: 'Rua 19, nº 226, Ed. Dom Abel, 1º andar, Centro, Goiânia - GO'
   },
   {
     name: 'Defensoria Pública da União (DPU)',
     role: 'Grupo de Trabalho de Conflitos Fundiários e Proteção aos Direitos Humanos',
     phone: '0800 722 0101',
     email: 'conflitosfundiarios@dpu.def.br',
-    site: 'https://www.dpu.def.br'
+    site: 'https://www.dpu.def.br',
+    address: 'Edifício Sede DPU, Setor Bancário Norte, Quadra 1, Bloco F, Brasília - DF'
   },
   {
     name: 'Disque 100 - Direitos Humanos Brasil',
-    role: 'Canal Oficial Federal de Denúncias Contra Violência e Ameaças',
+    role: 'Canal Oficial Federal de Denúncias Contra Violência, Ameaças e Trabalho Escravo',
     phone: 'Disque 100',
     email: 'ouvidoria@mdh.gov.br',
-    site: 'https://www.gov.br/mdh/pt-br'
+    site: 'https://www.gov.br/mdh/pt-br',
+    address: 'Ministério dos Direitos Humanos e da Cidadania - Esplanada dos Ministérios, Bloco A, Brasília - DF'
   },
   {
     name: 'Ministério Público Federal (MPF - 6ª CCR)',
     role: 'Câmara de Populações Indígenas e Comunidades Tradicionais',
     phone: '(61) 3105-5100',
     email: 'pgr-6ccr@mpf.mp.br',
-    site: 'https://www.mpf.mp.br'
+    site: 'https://www.mpf.mp.br/pgr/institucional/camaras-de-coordenacao-e-revisao/6a-ccr',
+    address: 'Procuradoria-Geral da República, SAF Sul, Quadra 4, Conjunto C, Brasília - DF'
   },
   {
     name: 'Ouvidoria Agrária Nacional (MDA)',
     role: 'Ministério do Desenvolvimento Agrário e Agricultura Familiar',
     phone: '(61) 2020-0000',
     email: 'ouvidoria@mda.gov.br',
-    site: 'https://www.gov.br/mda'
+    site: 'https://www.gov.br/mda/pt-br',
+    address: 'Esplanada dos Ministérios, Bloco F, Brasília - DF'
   }
 ];
