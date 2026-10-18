@@ -106,10 +106,37 @@ export const ReportChannel: React.FC = () => {
     }, 600);
   };
 
+  const [copiedDossier, setCopiedDossier] = useState<boolean>(false);
+
   const handleCopyProtocol = (code: string) => {
     navigator.clipboard.writeText(code);
     setCopiedProtocol(true);
     setTimeout(() => setCopiedProtocol(false), 2000);
+  };
+
+  const handleCopyFullDossier = (report: ReportSubmission) => {
+    const text = `=== REGISTRO DE VIOLAÇÃO DE DIREITOS HUMANOS E SEGURANÇA NO CAMPO ===
+Protocolo: ${report.protocol}
+Data/Hora: ${report.timestamp}
+Nível de Urgência: ${report.urgency}
+Classificação: ${report.category}
+Local: ${report.settlementName}, Município de ${report.municipality} - ${report.state}
+Presença de Homens Armados/Pistoleiros: ${report.hasArmedPresence ? 'SIM (Confirmada)' : 'Não informada'}
+Pulverização de Agrotóxicos em Área Habitada: ${report.hasChemicalSpraying ? 'SIM (Confirmada)' : 'Não informada'}
+Identificação: ${report.isAnonymous ? 'Denúncia Anônima (Sigilo resguardado)' : `${report.informantName} (${report.informantContact})`}
+
+RELATO DETALHADO DOS FATOS:
+${report.description}
+
+ENCAMINHAMENTO OFICIAL:
+- Comissão Pastoral da Terra (CPT): cpt@cptnacional.org.br
+- Defensoria Pública da União: conflitosfundiarios@dpu.def.br
+- Ouvidoria Agrária Nacional / Fala.BR: https://falabr.cgu.gov.br
+- Disque 100 - Direitos Humanos: WhatsApp (61) 99656-5008
+======================================================================`;
+    navigator.clipboard.writeText(text);
+    setCopiedDossier(true);
+    setTimeout(() => setCopiedDossier(false), 2500);
   };
 
   const handleLookup = () => {
@@ -122,26 +149,7 @@ export const ReportChannel: React.FC = () => {
     if (found) {
       setLookupResult(found);
     } else {
-      // Demo simulated response if looking up a sample code
-      if (cleanCode.startsWith('DEN-MST')) {
-        setLookupResult({
-          id: 'sim_1',
-          protocol: cleanCode,
-          timestamp: '17/10/2026 às 10:15',
-          category: 'Ameaça de Grileiros / Conflito de Terra',
-          urgency: 'Alta',
-          state: 'PA',
-          municipality: 'Marabá',
-          settlementName: 'Assentamento Palmares II',
-          description: 'Registro sob monitoramento da assessoria jurídica da CPT e Ouvidoria Agrária.',
-          hasArmedPresence: true,
-          hasChemicalSpraying: false,
-          isAnonymous: true,
-          status: 'Encaminhada ao MPF/DPU',
-        });
-      } else {
-        setLookupError('Protocolo não localizado na base local. Verifique os dígitos (Exemplo: DEN-MST-2026-1234).');
-      }
+      setLookupError(`Nenhum registro com o protocolo "${cleanCode}" foi localizado no armazenamento deste navegador. Caso tenha registrado em outro aparelho, consulte os canais oficiais do Fala.BR (Ouvidoria Agrária) ou a CPT.`);
     }
   };
 
@@ -570,17 +578,60 @@ export const ReportChannel: React.FC = () => {
                 <div><b>Anonimato:</b> {generatedProtocol.isAnonymous ? 'Preservado (100% Anônimo)' : 'Identificado com a equipe'}</div>
               </div>
 
-              <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={() => window.print()}
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-stone-300 text-xs font-semibold text-stone-700 hover:bg-stone-50"
-                >
-                  <Printer className="w-3.5 h-3.5" />
-                  <span>Imprimir Comprovante</span>
-                </button>
+              {/* Official next steps */}
+              <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-700 space-y-2">
+                <div className="font-semibold text-stone-900 flex items-center gap-1.5">
+                  <ExternalLink className="w-3.5 h-3.5 text-stone-600" />
+                  <span>Canais Federais Oficiais para Envio:</span>
+                </div>
+                <div className="flex flex-wrap gap-2 text-[11px]">
+                  <a
+                    href="https://falabr.cgu.gov.br"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 bg-white border border-stone-300 rounded text-stone-800 hover:bg-stone-100 font-medium"
+                  >
+                    Fala.BR (Ouvidoria Agrária)
+                  </a>
+                  <a
+                    href="https://www.mpf.mp.br/mpf-cidadao"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 bg-white border border-stone-300 rounded text-stone-800 hover:bg-stone-100 font-medium"
+                  >
+                    MPF Cidadão
+                  </a>
+                  <a
+                    href="https://wa.me/5561996565008"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 bg-emerald-50 border border-emerald-300 rounded text-emerald-800 hover:bg-emerald-100 font-medium"
+                  >
+                    Disque 100 WhatsApp
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button
+                    onClick={() => handleCopyFullDossier(generatedProtocol)}
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-800 hover:bg-stone-50"
+                  >
+                    {copiedDossier ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedDossier ? 'Dossiê Copiado!' : 'Copiar Dossiê Formatado'}</span>
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-700 hover:bg-stone-50"
+                  >
+                    <Printer className="w-3.5 h-3.5" />
+                    <span>Imprimir</span>
+                  </button>
+                </div>
                 <button
                   onClick={() => setGeneratedProtocol(null)}
-                  className="px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition-colors"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition-colors"
                 >
                   Concluir e Fechar
                 </button>

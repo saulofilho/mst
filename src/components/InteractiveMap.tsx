@@ -22,6 +22,7 @@ import {
 interface InteractiveMapProps {
   onSelectRecipeProduct?: (productName: string) => void;
   targetMarketId?: string | null;
+  targetSearchQuery?: string | null;
 }
 
 // Haversine formula to compute distance in km
@@ -54,7 +55,10 @@ function getMarkerColor(type: MarketType): { bg: string; border: string; text: s
   }
 }
 
-export const InteractiveMap: React.FC<InteractiveMapProps> = ({ targetMarketId }) => {
+export const InteractiveMap: React.FC<InteractiveMapProps> = ({ 
+  targetMarketId, 
+  targetSearchQuery 
+}) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersGroupRef = useRef<L.LayerGroup | null>(null);
@@ -255,6 +259,14 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ targetMarketId }
       }
     }
   }, [targetMarketId]);
+
+  useEffect(() => {
+    if (targetSearchQuery) {
+      setSearchQuery(targetSearchQuery);
+      setSelectedType('todos');
+      setSelectedState('todos');
+    }
+  }, [targetSearchQuery]);
 
   // Request browser geolocation
   const handleUseMyLocation = () => {

@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('mapa');
   const [targetMarketId, setTargetMarketId] = useState<string | null>(null);
+  const [targetSearchQuery, setTargetSearchQuery] = useState<string | null>(null);
 
   const scrollToSection = (id: string) => {
     setActiveTab(id);
@@ -33,13 +34,15 @@ export default function App() {
   };
 
   const handleLocateClick = () => {
+    setTargetSearchQuery('');
     scrollToSection('mapa');
   };
 
   const handleLocateMarketForProduct = (productName: string) => {
+    // Extract base keyword like 'Arroz', 'Café', 'Feijão', 'Fubá', 'Mandioca'
+    const cleanWord = productName.split(' ')[0] || productName;
+    setTargetSearchQuery(cleanWord);
     scrollToSection('mapa');
-    // If the product is rice, select armazem-sp or default
-    setTargetMarketId('armazem-sp-campos-eliseos');
   };
 
   return (
@@ -62,6 +65,7 @@ export default function App() {
         {/* Core Feature 1: Interactive Map & Market Locator */}
         <InteractiveMap
           targetMarketId={targetMarketId}
+          targetSearchQuery={targetSearchQuery}
           onSelectRecipeProduct={handleLocateMarketForProduct}
         />
 

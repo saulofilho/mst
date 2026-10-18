@@ -303,6 +303,11 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
                   </div>
                 )}
               </div>
+
+              {/* Real Data Methodology Note */}
+              <div className="pt-3 border-t border-stone-200 text-[11px] text-stone-500 leading-relaxed font-sans">
+                <b>Metodologia & Fontes Reais:</b> Estimativas fundamentadas nos dados oficiais do Programa de Análise de Resíduos de Agrotóxicos em Alimentos (PARA/ANVISA), médias de emissões em circuitos curtos da Embrapa/FAO e tabelas de preços públicos praticados pela CONCRAB (Confederação das Cooperativas de Reforma Agrária do Brasil).
+              </div>
             </div>
           </div>
         </div>
