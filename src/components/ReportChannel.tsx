@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SECURITY_HOTLINES } from '../data/history';
 import { ReportSubmission } from '../types';
 import { 
@@ -15,8 +15,8 @@ import {
   LifeBuoy, 
   Search,
   ExternalLink,
-  ChevronDown,
-  Info
+  Info,
+  X
 } from 'lucide-react';
 
 export const ReportChannel: React.FC = () => {
@@ -33,6 +33,7 @@ export const ReportChannel: React.FC = () => {
   const [informantName, setInformantName] = useState<string>('');
   const [informantContact, setInformantContact] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [formValidationError, setFormValidationError] = useState<string>('');
 
   // Completed Protocol Modal
   const [generatedProtocol, setGeneratedProtocol] = useState<ReportSubmission | null>(null);
@@ -53,10 +54,23 @@ export const ReportChannel: React.FC = () => {
     }
   });
 
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && generatedProtocol) {
+        setGeneratedProtocol(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [generatedProtocol]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormValidationError('');
+
     if (!description.trim() || !settlementName.trim() || !municipality.trim()) {
-      alert('Por favor, preencha o município, nome da comunidade e o relato dos fatos.');
+      setFormValidationError('Por favor, preencha o município, nome da comunidade e o relato detalhado dos fatos.');
       return;
     }
 
@@ -154,17 +168,21 @@ ENCAMINHAMENTO OFICIAL:
   };
 
   return (
-    <section id="canal-denuncias" className="py-16 bg-white border-b border-stone-200">
+    <section 
+      id="canal-denuncias" 
+      aria-labelledby="report-channel-heading"
+      className="py-16 bg-white border-b border-stone-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 text-xs font-semibold text-red-700 tracking-wider uppercase mb-2">
-            <ShieldAlert className="w-4 h-4" />
+            <ShieldAlert className="w-4 h-4" aria-hidden="true" />
             <span>Direitos Humanos & Proteção da Vida</span>
             <span aria-hidden="true">·</span>
             <span>Segurança Popular no Campo</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
+          <h2 id="report-channel-heading" className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
             Canal de Denúncias e Apoio à Segurança dos Assentados
           </h2>
           <p className="mt-3 text-base text-stone-600 leading-relaxed">
@@ -175,9 +193,13 @@ ENCAMINHAMENTO OFICIAL:
         </div>
 
         {/* Emergency Alert Banner */}
-        <div className="mb-10 bg-red-50 border border-red-200 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <aside 
+          role="region" 
+          aria-label="Aviso de emergência para risco à vida"
+          className="mb-10 bg-red-50 border border-red-200 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+        >
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" aria-hidden="true" />
             <div>
               <h3 className="text-sm font-bold text-red-950">
                 Emergência em andamento ou risco iminente à vida?
@@ -189,35 +211,47 @@ ENCAMINHAMENTO OFICIAL:
           </div>
           <a
             href="tel:100"
-            className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs font-bold whitespace-nowrap shadow-xs transition-colors flex items-center gap-1.5 shrink-0"
+            aria-label="Ligar imediatamente para o Disque 100 Direitos Humanos"
+            className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg text-xs font-bold whitespace-nowrap shadow-xs transition-colors flex items-center gap-1.5 shrink-0 focus:outline-hidden focus:ring-2 focus:ring-red-700"
           >
-            <PhoneCall className="w-3.5 h-3.5" />
+            <PhoneCall className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Ligar para o Disque 100</span>
           </a>
-        </div>
+        </aside>
 
         {/* Main Grid: Form (Left) + Hotlines & Emergency Protocol (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Form Column */}
           <div className="lg:col-span-7 bg-[#FAF8F5] rounded-3xl border border-stone-300 p-6 sm:p-8 shadow-xs">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200">
-              <h3 className="text-lg font-serif font-bold text-stone-900 flex items-center gap-2">
-                <Lock className="w-4 h-4 text-emerald-700" />
+              <h3 id="report-form-title" className="text-lg font-serif font-bold text-stone-900 flex items-center gap-2">
+                <Lock className="w-4 h-4 text-emerald-700" aria-hidden="true" />
                 <span>Formulário de Registro de Ocorrência</span>
               </h3>
-              <span className="text-xs font-semibold text-stone-500">
+              <span className="text-xs font-semibold text-stone-500" aria-live="polite">
                 {isAnonymous ? 'Modo 100% Anônimo' : 'Com Identificação'}
               </span>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {formValidationError && (
+              <div 
+                role="alert" 
+                aria-live="assertive"
+                className="mb-4 p-3 bg-red-50 border border-red-300 rounded-xl text-xs text-red-800 flex items-center gap-2"
+              >
+                <AlertTriangle className="w-4 h-4 text-red-700 shrink-0" aria-hidden="true" />
+                <span>{formValidationError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} aria-labelledby="report-form-title" className="space-y-5">
               {/* Anonymous toggle */}
               <div className="p-3.5 bg-white rounded-xl border border-stone-200 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
                   {isAnonymous ? (
-                    <EyeOff className="w-4 h-4 text-emerald-700" />
+                    <EyeOff className="w-4 h-4 text-emerald-700" aria-hidden="true" />
                   ) : (
-                    <Eye className="w-4 h-4 text-stone-500" />
+                    <Eye className="w-4 h-4 text-stone-500" aria-hidden="true" />
                   )}
                   <div>
                     <div className="text-xs font-bold text-stone-900">
@@ -234,40 +268,44 @@ ENCAMINHAMENTO OFICIAL:
                 <button
                   type="button"
                   onClick={() => setIsAnonymous(!isAnonymous)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                  aria-pressed={isAnonymous}
+                  aria-label={isAnonymous ? "Alternar para denúncia com identificação pessoal" : "Alternar para denúncia totalmente anônima"}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-stone-400 ${
                     isAnonymous
                       ? 'bg-emerald-100 text-emerald-800'
                       : 'bg-stone-200 text-stone-700'
                   }`}
                 >
-                  {isAnonymous ? 'Tornar Pública/Identificada' : 'Tornar Anônima'}
+                  {isAnonymous ? 'Tornar Identificada' : 'Tornar Anônima'}
                 </button>
               </div>
 
               {!isAnonymous && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 bg-white rounded-xl border border-stone-200">
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">
+                    <label htmlFor="informant-name" className="block text-xs font-semibold text-stone-700 mb-1">
                       Seu Nome ou Codinome
                     </label>
                     <input
+                      id="informant-name"
                       type="text"
                       value={informantName}
                       onChange={(e) => setInformantName(e.target.value)}
                       placeholder="Ex: Maria dos Santos"
-                      className="w-full px-3 py-2 text-xs bg-[#FAF8F5] border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
+                      className="w-full px-3 py-2 text-xs bg-[#FAF8F5] border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">
+                    <label htmlFor="informant-contact" className="block text-xs font-semibold text-stone-700 mb-1">
                       Contato Seguro (WhatsApp ou Telefone)
                     </label>
                     <input
+                      id="informant-contact"
                       type="text"
                       value={informantContact}
                       onChange={(e) => setInformantContact(e.target.value)}
                       placeholder="(DDD) 90000-0000"
-                      className="w-full px-3 py-2 text-xs bg-[#FAF8F5] border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
+                      className="w-full px-3 py-2 text-xs bg-[#FAF8F5] border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600"
                     />
                   </div>
                 </div>
@@ -276,13 +314,14 @@ ENCAMINHAMENTO OFICIAL:
               {/* Category & Urgency */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-stone-800 mb-1">
+                  <label htmlFor="occurrence-category" className="block text-xs font-semibold text-stone-800 mb-1">
                     Tipo de Ocorrência
                   </label>
                   <select
+                    id="occurrence-category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-stone-800"
+                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600 text-stone-800"
                   >
                     <option value="ameaca_armada">Ameaça de Pistoleiros / Milícia Rural</option>
                     <option value="pulverizacao_agrotoxicos">Pulverização Criminosa de Agrotóxicos</option>
@@ -294,16 +333,22 @@ ENCAMINHAMENTO OFICIAL:
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-800 mb-1">
+                  <label id="urgency-label" className="block text-xs font-semibold text-stone-800 mb-1">
                     Nível de Urgência
                   </label>
-                  <div className="flex items-center gap-1.5 p-1 bg-white rounded-lg border border-stone-200">
+                  <div 
+                    role="radiogroup" 
+                    aria-labelledby="urgency-label"
+                    className="flex items-center gap-1.5 p-1 bg-white rounded-lg border border-stone-200"
+                  >
                     {(['Média', 'Alta', 'Crítica'] as const).map((lvl) => (
                       <button
                         key={lvl}
                         type="button"
+                        role="radio"
+                        aria-checked={urgency === lvl}
                         onClick={() => setUrgency(lvl)}
-                        className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
+                        className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap focus:outline-hidden focus:ring-2 focus:ring-red-600 ${
                           urgency === lvl
                             ? lvl === 'Crítica'
                               ? 'bg-red-700 text-white'
@@ -323,13 +368,14 @@ ENCAMINHAMENTO OFICIAL:
               {/* Location */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-stone-800 mb-1">
+                  <label htmlFor="occurrence-uf" className="block text-xs font-semibold text-stone-800 mb-1">
                     Estado (UF)
                   </label>
                   <select
+                    id="occurrence-uf"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-stone-800"
+                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600 text-stone-800"
                   >
                     {['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'].map((uf) => (
                       <option key={uf} value={uf}>{uf}</option>
@@ -338,36 +384,40 @@ ENCAMINHAMENTO OFICIAL:
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-800 mb-1">
-                    Município
+                  <label htmlFor="occurrence-municipality" className="block text-xs font-semibold text-stone-800 mb-1">
+                    Município <span className="text-red-600" aria-label="obrigatório">*</span>
                   </label>
                   <input
+                    id="occurrence-municipality"
                     type="text"
                     required
+                    aria-required="true"
                     value={municipality}
                     onChange={(e) => setMunicipality(e.target.value)}
                     placeholder="Ex: Ribeirão Preto"
-                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-800 mb-1">
-                    Assentamento / Comunidade
+                  <label htmlFor="occurrence-settlement" className="block text-xs font-semibold text-stone-800 mb-1">
+                    Assentamento / Comunidade <span className="text-red-600" aria-label="obrigatório">*</span>
                   </label>
                   <input
+                    id="occurrence-settlement"
                     type="text"
                     required
+                    aria-required="true"
                     value={settlementName}
                     onChange={(e) => setSettlementName(e.target.value)}
                     placeholder="Ex: Assentamento Mário Lago"
-                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    className="w-full px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600"
                   />
                 </div>
               </div>
 
               {/* Checkbox tags */}
-              <div className="flex flex-wrap gap-4 pt-1">
+              <div className="flex flex-wrap gap-4 pt-1" role="group" aria-label="Fatores agravantes de segurança">
                 <label className="flex items-center gap-2 text-xs text-stone-800 cursor-pointer">
                   <input
                     type="checkbox"
@@ -391,16 +441,18 @@ ENCAMINHAMENTO OFICIAL:
 
               {/* Detailed Description */}
               <div>
-                <label className="block text-xs font-semibold text-stone-800 mb-1">
-                  Relato Detalhado dos Fatos
+                <label htmlFor="occurrence-description" className="block text-xs font-semibold text-stone-800 mb-1">
+                  Relato Detalhado dos Fatos <span className="text-red-600" aria-label="obrigatório">*</span>
                 </label>
                 <textarea
+                  id="occurrence-description"
                   rows={4}
                   required
+                  aria-required="true"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Descreva o que ocorreu: datas aproximadas, quantidade de pessoas afetadas, placas de veículos se houver, ameaças proferidas e situação atual da comunidade..."
-                  className="w-full p-3 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 text-stone-800 leading-relaxed"
+                  className="w-full p-3 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600 text-stone-800 leading-relaxed"
                 />
               </div>
 
@@ -408,9 +460,10 @@ ENCAMINHAMENTO OFICIAL:
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 px-6 text-xs sm:text-sm font-bold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+                aria-label="Registrar denúncia com sigilo e criptografia"
+                className="w-full py-3.5 px-6 text-xs sm:text-sm font-bold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs transition-all disabled:opacity-60 flex items-center justify-center gap-2 focus:outline-hidden focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
               >
-                <ShieldAlert className="w-4 h-4" />
+                <ShieldAlert className="w-4 h-4" aria-hidden="true" />
                 <span>
                   {isSubmitting ? 'Gerando Protocolo Seguro...' : 'Registrar Denúncia com Criptografia e Sigilo'}
                 </span>
@@ -421,9 +474,13 @@ ENCAMINHAMENTO OFICIAL:
           {/* Right Column: Hotlines & Protocol Check */}
           <div className="lg:col-span-5 space-y-6">
             {/* Consult Protocol Card */}
-            <div className="bg-[#FAF8F5] rounded-3xl border border-stone-300 p-6 space-y-4 shadow-xs">
-              <h4 className="text-base font-serif font-bold text-stone-900 flex items-center gap-2">
-                <Search className="w-4 h-4 text-red-700" />
+            <div 
+              role="region" 
+              aria-labelledby="lookup-heading"
+              className="bg-[#FAF8F5] rounded-3xl border border-stone-300 p-6 space-y-4 shadow-xs"
+            >
+              <h4 id="lookup-heading" className="text-base font-serif font-bold text-stone-900 flex items-center gap-2">
+                <Search className="w-4 h-4 text-red-700" aria-hidden="true" />
                 <span>Consultar Andamento de Denúncia</span>
               </h4>
               <p className="text-xs text-stone-600">
@@ -431,29 +488,45 @@ ENCAMINHAMENTO OFICIAL:
               </p>
 
               <div className="flex gap-2">
+                <label htmlFor="protocol-lookup-input" className="sr-only">
+                  Código do protocolo para consulta
+                </label>
                 <input
+                  id="protocol-lookup-input"
                   type="text"
                   value={lookupCode}
                   onChange={(e) => setLookupCode(e.target.value)}
                   placeholder="DEN-MST-2026-XXXX"
-                  className="flex-1 px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 font-mono uppercase"
+                  aria-label="Código do protocolo da denúncia"
+                  className="flex-1 px-3 py-2 text-xs bg-white border border-stone-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-red-600 font-mono uppercase"
                 />
                 <button
+                  type="button"
                   onClick={handleLookup}
-                  className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
+                  aria-label="Consultar protocolo informado"
+                  className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap focus:outline-hidden focus:ring-2 focus:ring-stone-600"
                 >
                   Consultar
                 </button>
               </div>
 
               {lookupError && (
-                <div className="text-xs text-red-700 bg-red-50 p-2.5 rounded-lg border border-red-200">
+                <div 
+                  role="alert" 
+                  aria-live="assertive"
+                  className="text-xs text-red-700 bg-red-50 p-2.5 rounded-lg border border-red-200"
+                >
                   {lookupError}
                 </div>
               )}
 
               {lookupResult && (
-                <div className="bg-white rounded-xl border border-stone-200 p-4 space-y-2.5 text-xs text-stone-700 animate-fadeIn">
+                <div 
+                  role="region" 
+                  aria-label="Detalhes da denúncia consultada" 
+                  aria-live="polite"
+                  className="bg-white rounded-xl border border-stone-200 p-4 space-y-2.5 text-xs text-stone-700 animate-fadeIn"
+                >
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-red-700">{lookupResult.protocol}</span>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900">
@@ -474,28 +547,36 @@ ENCAMINHAMENTO OFICIAL:
             </div>
 
             {/* Official Support Channels */}
-            <div className="bg-white rounded-3xl border border-stone-200 p-6 space-y-4 shadow-xs">
-              <h4 className="text-base font-serif font-bold text-stone-900 flex items-center gap-2">
-                <LifeBuoy className="w-4 h-4 text-emerald-700" />
+            <div 
+              role="region" 
+              aria-labelledby="hotlines-heading"
+              className="bg-white rounded-3xl border border-stone-200 p-6 space-y-4 shadow-xs"
+            >
+              <h4 id="hotlines-heading" className="text-base font-serif font-bold text-stone-900 flex items-center gap-2">
+                <LifeBuoy className="w-4 h-4 text-emerald-700" aria-hidden="true" />
                 <span>Órgãos de Proteção e Apoio Jurídico</span>
               </h4>
               <p className="text-xs text-stone-600">
                 Rede de entidades permanentes que acompanham os conflitos agrários e a segurança das famílias camponesas.
               </p>
 
-              <div className="space-y-3 divide-y divide-stone-100">
+              <div 
+                role="list" 
+                aria-label="Lista de canais oficiais e contatos emergenciais"
+                className="space-y-3 divide-y divide-stone-100"
+              >
                 {SECURITY_HOTLINES.map((hotline, idx) => (
-                  <div key={idx} className={idx > 0 ? 'pt-3' : ''}>
+                  <div role="listitem" key={idx} className={idx > 0 ? 'pt-3' : ''}>
                     <div className="text-xs font-bold text-stone-900 flex items-center justify-between">
                       <span>{hotline.name}</span>
                       <a
                         href={hotline.site}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-stone-400 hover:text-stone-700"
-                        title="Visitar site oficial"
+                        className="text-stone-400 hover:text-stone-700 focus:outline-hidden focus:ring-1 focus:ring-stone-400 rounded"
+                        aria-label={`Visitar site oficial da entidade ${hotline.name} (abre em nova aba)`}
                       >
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                       </a>
                     </div>
                     <div className="text-[11px] text-stone-500 mt-0.5">{hotline.role}</div>
@@ -503,11 +584,19 @@ ENCAMINHAMENTO OFICIAL:
                       <div className="text-[11px] text-stone-500 mt-0.5">📍 {hotline.address}</div>
                     )}
                     <div className="flex items-center gap-3 mt-1.5 text-xs font-semibold text-red-700">
-                      <a href={`tel:${hotline.phone.replace(/\D/g, '')}`} className="hover:underline">
+                      <a 
+                        href={`tel:${hotline.phone.replace(/\D/g, '')}`} 
+                        className="hover:underline focus:outline-hidden focus:ring-1 focus:ring-red-600 rounded"
+                        aria-label={`Telefone ${hotline.name}: ${hotline.phone}`}
+                      >
                         📞 {hotline.phone}
                       </a>
                       <span aria-hidden="true" className="text-stone-300">·</span>
-                      <a href={`mailto:${hotline.email}`} className="text-stone-600 hover:underline">
+                      <a 
+                        href={`mailto:${hotline.email}`} 
+                        className="text-stone-600 hover:underline focus:outline-hidden focus:ring-1 focus:ring-stone-600 rounded"
+                        aria-label={`E-mail ${hotline.name}: ${hotline.email}`}
+                      >
                         ✉️ {hotline.email}
                       </a>
                     </div>
@@ -516,10 +605,13 @@ ENCAMINHAMENTO OFICIAL:
               </div>
             </div>
 
-            {/* Emergency Guide Accordion */}
-            <div className="bg-amber-50/60 rounded-2xl border border-amber-200 p-5 space-y-2 text-xs text-amber-950">
+            {/* Emergency Guide */}
+            <aside 
+              aria-label="Orientações de Segurança Preventiva"
+              className="bg-amber-50/60 rounded-2xl border border-amber-200 p-5 space-y-2 text-xs text-amber-950"
+            >
               <div className="font-bold flex items-center gap-2">
-                <Info className="w-4 h-4 text-amber-700" />
+                <Info className="w-4 h-4 text-amber-700" aria-hidden="true" />
                 <span>Orientações de Segurança Preventiva</span>
               </div>
               <ul className="list-disc pl-4 space-y-1 text-amber-900 text-[11px] leading-relaxed">
@@ -528,15 +620,29 @@ ENCAMINHAMENTO OFICIAL:
                 <li>Se for seguro, registre fotos e vídeos com data e hora sem se expor à linha de tiro.</li>
                 <li>Guarde seu número de protocolo para acompanhamento com a equipe jurídica.</li>
               </ul>
-            </div>
+            </aside>
           </div>
         </div>
 
         {/* Modal: Successfully Generated Protocol Receipt */}
         {generatedProtocol && (
-          <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <div 
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="protocol-modal-title"
+            aria-describedby="protocol-modal-desc"
+            className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-4"
+          >
+            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-stone-200 space-y-6 relative">
+              <button
+                onClick={() => setGeneratedProtocol(null)}
+                aria-label="Fechar janela do protocolo"
+                className="absolute top-6 right-6 p-2 text-stone-400 hover:text-stone-700 rounded-lg hover:bg-stone-100 transition-colors focus:outline-hidden focus:ring-2 focus:ring-stone-400"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
+              </button>
+
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center" aria-hidden="true">
                 <FileCheck2 className="w-6 h-6" />
               </div>
 
@@ -544,10 +650,10 @@ ENCAMINHAMENTO OFICIAL:
                 <span className="text-xs uppercase tracking-wider font-bold text-emerald-700">
                   Denúncia Registrada com Sucesso
                 </span>
-                <h3 className="text-2xl font-serif font-bold text-stone-900 mt-1">
+                <h3 id="protocol-modal-title" className="text-2xl font-serif font-bold text-stone-900 mt-1">
                   Protocolo de Segurança Gerado
                 </h3>
-                <p className="text-xs text-stone-600 mt-1">
+                <p id="protocol-modal-desc" className="text-xs text-stone-600 mt-1">
                   Guarde este código para acompanhar os desdobramentos com a assessoria jurídica e a Comissão Pastoral da Terra.
                 </p>
               </div>
@@ -556,15 +662,17 @@ ENCAMINHAMENTO OFICIAL:
               <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-stone-300 flex items-center justify-between gap-3">
                 <div>
                   <div className="text-[10px] uppercase font-bold text-stone-500">Número do Protocolo</div>
-                  <div className="text-xl font-mono font-bold text-red-700">
+                  <div className="text-xl font-mono font-bold text-red-700" aria-label={`Protocolo ${generatedProtocol.protocol}`}>
                     {generatedProtocol.protocol}
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={() => handleCopyProtocol(generatedProtocol.protocol)}
-                  className="px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold text-stone-700 hover:bg-stone-50 flex items-center gap-1.5"
+                  aria-label="Copiar código do protocolo"
+                  className="px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs font-semibold text-stone-700 hover:bg-stone-50 flex items-center gap-1.5 focus:outline-hidden focus:ring-2 focus:ring-red-700"
                 >
-                  {copiedProtocol ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedProtocol ? <Check className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
                   <span>{copiedProtocol ? 'Copiado!' : 'Copiar'}</span>
                 </button>
               </div>
@@ -581,7 +689,7 @@ ENCAMINHAMENTO OFICIAL:
               {/* Official next steps */}
               <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-700 space-y-2">
                 <div className="font-semibold text-stone-900 flex items-center gap-1.5">
-                  <ExternalLink className="w-3.5 h-3.5 text-stone-600" />
+                  <ExternalLink className="w-3.5 h-3.5 text-stone-600" aria-hidden="true" />
                   <span>Canais Federais Oficiais para Envio:</span>
                 </div>
                 <div className="flex flex-wrap gap-2 text-[11px]">
@@ -590,6 +698,7 @@ ENCAMINHAMENTO OFICIAL:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-2.5 py-1 bg-white border border-stone-300 rounded text-stone-800 hover:bg-stone-100 font-medium"
+                    aria-label="Acessar Fala.BR Ouvidoria Agrária Federal (abre em nova aba)"
                   >
                     Fala.BR (Ouvidoria Agrária)
                   </a>
@@ -598,6 +707,7 @@ ENCAMINHAMENTO OFICIAL:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-2.5 py-1 bg-white border border-stone-300 rounded text-stone-800 hover:bg-stone-100 font-medium"
+                    aria-label="Acessar MPF Cidadão Ministério Público Federal (abre em nova aba)"
                   >
                     MPF Cidadão
                   </a>
@@ -606,6 +716,7 @@ ENCAMINHAMENTO OFICIAL:
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-2.5 py-1 bg-emerald-50 border border-emerald-300 rounded text-emerald-800 hover:bg-emerald-100 font-medium"
+                    aria-label="Conversar no WhatsApp do Disque 100 Direitos Humanos (abre em nova aba)"
                   >
                     Disque 100 WhatsApp
                   </a>
@@ -615,23 +726,29 @@ ENCAMINHAMENTO OFICIAL:
               <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2">
                 <div className="flex items-center gap-2 w-full sm:w-auto">
                   <button
+                    type="button"
                     onClick={() => handleCopyFullDossier(generatedProtocol)}
-                    className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-800 hover:bg-stone-50"
+                    aria-label="Copiar dossiê completo formatado para transferência"
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-800 hover:bg-stone-50 focus:outline-hidden focus:ring-2 focus:ring-stone-400"
                   >
-                    {copiedDossier ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedDossier ? <Check className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
                     <span>{copiedDossier ? 'Dossiê Copiado!' : 'Copiar Dossiê Formatado'}</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => window.print()}
-                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-700 hover:bg-stone-50"
+                    aria-label="Imprimir comprovante do protocolo"
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-stone-300 text-xs font-semibold text-stone-700 hover:bg-stone-50 focus:outline-hidden focus:ring-2 focus:ring-stone-400"
                   >
-                    <Printer className="w-3.5 h-3.5" />
+                    <Printer className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>Imprimir</span>
                   </button>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setGeneratedProtocol(null)}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition-colors"
+                  aria-label="Concluir e fechar diálogo do protocolo"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition-colors focus:outline-hidden focus:ring-2 focus:ring-stone-600"
                 >
                   Concluir e Fechar
                 </button>

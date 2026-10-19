@@ -23,3 +23,46 @@
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   z-index: 10;
 }
+
+/* Radar pulse animation for GPS and closest MST fairs */
+@keyframes geo-radar-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.radar-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  margin-left: -12px;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: geo-radar-pulse 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+.nearest-badge-pulse {
+  animation: bounce-subtle 2.5s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+

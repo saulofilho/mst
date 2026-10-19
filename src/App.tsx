@@ -50,6 +50,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-stone-900 flex flex-col font-sans selection:bg-red-700 selection:text-white">
+      {/* Skip to Content Link for Screen Readers & Keyboard Navigation */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-red-700 focus:text-white focus:font-semibold focus:rounded-lg focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all"
+      >
+        Pular para o conteúdo principal
+      </a>
+
       {/* Top Bar Navigation */}
       <Navbar
         activeTab={activeTab}
@@ -57,7 +65,13 @@ export default function App() {
         onLocateClick={handleLocateClick}
       />
 
-      <main className="flex-1">
+      <main 
+        id="main-content" 
+        tabIndex={-1} 
+        role="main" 
+        aria-label="Conteúdo principal da plataforma Terra & Alimento"
+        className="flex-1 focus:outline-none"
+      >
         {/* Hero Section with 4-Column KPI strip */}
         <Hero
           onExploreMarkets={() => scrollToSection('mapa')}

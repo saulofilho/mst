@@ -9,8 +9,7 @@ import {
   ArrowRight, 
   Check, 
   ShieldCheck, 
-  Calculator,
-  Share2
+  Calculator
 } from 'lucide-react';
 
 interface SupportSectionProps {
@@ -45,17 +44,21 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
   };
 
   return (
-    <section id="como-apoiar" className="py-16 bg-[#FAF8F5] border-b border-stone-200">
+    <section 
+      id="como-apoiar" 
+      aria-labelledby="support-heading"
+      className="py-16 bg-[#FAF8F5] border-b border-stone-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 text-xs font-semibold text-red-700 tracking-wider uppercase mb-2">
-            <HeartHandshake className="w-4 h-4" />
+            <HeartHandshake className="w-4 h-4" aria-hidden="true" />
             <span>Engajamento & Solidariedade</span>
             <span aria-hidden="true">·</span>
             <span>Democratizar a Terra</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
+          <h2 id="support-heading" className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
             Como Fomentar a Reforma Agrária Popular no seu Dia a Dia
           </h2>
           <p className="mt-3 text-base text-stone-600 leading-relaxed">
@@ -66,10 +69,14 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
         </div>
 
         {/* 4 Pillars of Support */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
+        <div 
+          role="list" 
+          aria-label="Formas de apoiar o movimento e a produção camponesa"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+        >
+          <div role="listitem" className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-red-50 text-red-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-red-50 text-red-700 flex items-center justify-center" aria-hidden="true">
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-serif font-bold text-stone-900">
@@ -81,16 +88,17 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
             </div>
             <button
               onClick={onGoToMarkets}
-              className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-900"
+              aria-label="Ver feiras e armazéns de comida sem veneno no mapa interativo"
+              className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-900 focus:outline-hidden focus:ring-2 focus:ring-red-700 focus:ring-offset-2 rounded"
             >
               <span>Ver pontos no mapa</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
+          <div role="listitem" className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center" aria-hidden="true">
                 <Sparkles className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-serif font-bold text-stone-900">
@@ -102,16 +110,17 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
             </div>
             <button
               onClick={onGoToMarkets}
-              className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-900"
+              aria-label="Ver pontos de entrega de cestas agroecológicas no mapa"
+              className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-700 focus:ring-offset-2 rounded"
             >
               <span>Pontos de cesta</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
+          <div role="listitem" className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center" aria-hidden="true">
                 <Trees className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-serif font-bold text-stone-900">
@@ -126,9 +135,9 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
+          <div role="listitem" className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-800 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-800 flex items-center justify-center" aria-hidden="true">
                 <Soup className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-serif font-bold text-stone-900">
@@ -145,13 +154,17 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
         </div>
 
         {/* Interactive Impact Calculator */}
-        <div className="bg-white rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-sm">
+        <div 
+          role="region" 
+          aria-labelledby="calculator-heading"
+          className="bg-white rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-sm"
+        >
           <div className="max-w-2xl mb-8">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-stone-500 mb-1">
-              <Calculator className="w-4 h-4 text-red-700" />
+              <Calculator className="w-4 h-4 text-red-700" aria-hidden="true" />
               <span>Simulador de Consumo Consciente</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+            <h3 id="calculator-heading" className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Calcule o Impacto Popular da sua Mesa
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mt-2">
@@ -164,19 +177,27 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
             {/* Sliders Column */}
             <div className="lg:col-span-6 space-y-6 bg-[#FAF8F5] p-6 rounded-2xl border border-stone-200">
               <div>
-                <div className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2">
+                <label 
+                  htmlFor="rice-range-input" 
+                  className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2 cursor-pointer"
+                >
                   <span>Arroz Orgânico Terra Livre por mês</span>
                   <span className="text-sm font-bold text-red-700 font-mono tabular-nums">{riceKg} kg</span>
-                </div>
+                </label>
                 <input
+                  id="rice-range-input"
                   type="range"
                   min="1"
                   max="30"
                   value={riceKg}
+                  aria-valuemin={1}
+                  aria-valuemax={30}
+                  aria-valuenow={riceKg}
+                  aria-valuetext={`${riceKg} quilos de arroz orgânico por mês`}
                   onChange={(e) => setRiceKg(Number(e.target.value))}
-                  className="w-full accent-red-700 cursor-pointer"
+                  className="w-full accent-red-700 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-red-700 rounded"
                 />
-                <div className="flex justify-between text-[11px] text-stone-400 mt-1">
+                <div className="flex justify-between text-[11px] text-stone-400 mt-1" aria-hidden="true">
                   <span>1 kg</span>
                   <span>15 kg</span>
                   <span>30 kg</span>
@@ -184,19 +205,27 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
               </div>
 
               <div>
-                <div className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2">
+                <label 
+                  htmlFor="beans-range-input" 
+                  className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2 cursor-pointer"
+                >
                   <span>Feijão Agroecológico sem veneno por mês</span>
                   <span className="text-sm font-bold text-red-700 font-mono tabular-nums">{beansKg} kg</span>
-                </div>
+                </label>
                 <input
+                  id="beans-range-input"
                   type="range"
                   min="1"
                   max="20"
                   value={beansKg}
+                  aria-valuemin={1}
+                  aria-valuemax={20}
+                  aria-valuenow={beansKg}
+                  aria-valuetext={`${beansKg} quilos de feijão agroecológico por mês`}
                   onChange={(e) => setBeansKg(Number(e.target.value))}
-                  className="w-full accent-red-700 cursor-pointer"
+                  className="w-full accent-red-700 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-red-700 rounded"
                 />
-                <div className="flex justify-between text-[11px] text-stone-400 mt-1">
+                <div className="flex justify-between text-[11px] text-stone-400 mt-1" aria-hidden="true">
                   <span>1 kg</span>
                   <span>10 kg</span>
                   <span>20 kg</span>
@@ -204,19 +233,27 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
               </div>
 
               <div>
-                <div className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2">
+                <label 
+                  htmlFor="baskets-range-input" 
+                  className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-2 cursor-pointer"
+                >
                   <span>Cestas de legumes e verduras agroecológicas por mês</span>
                   <span className="text-sm font-bold text-red-700 font-mono tabular-nums">{basketsPerMonth} cesta(s)</span>
-                </div>
+                </label>
                 <input
+                  id="baskets-range-input"
                   type="range"
                   min="0"
                   max="8"
                   value={basketsPerMonth}
+                  aria-valuemin={0}
+                  aria-valuemax={8}
+                  aria-valuenow={basketsPerMonth}
+                  aria-valuetext={`${basketsPerMonth} cestas agroecológicas por mês`}
                   onChange={(e) => setBasketsPerMonth(Number(e.target.value))}
-                  className="w-full accent-red-700 cursor-pointer"
+                  className="w-full accent-red-700 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-red-700 rounded"
                 />
-                <div className="flex justify-between text-[11px] text-stone-400 mt-1">
+                <div className="flex justify-between text-[11px] text-stone-400 mt-1" aria-hidden="true">
                   <span>0 (nenhuma)</span>
                   <span>4 (semanal)</span>
                   <span>8 (família grande)</span>
@@ -225,7 +262,12 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
             </div>
 
             {/* Impact Results Column */}
-            <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
+            <div 
+              role="region" 
+              aria-label="Resultados calculados do impacto gerado pelo consumo consciente"
+              aria-live="polite"
+              className="lg:col-span-6 flex flex-col justify-between space-y-6"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
                   <div className="text-2xl font-serif font-bold text-emerald-800 tabular-nums">
@@ -281,22 +323,28 @@ export const SupportSection: React.FC<SupportSectionProps> = ({ onGoToMarkets })
                 {!hasCommitted ? (
                   <button
                     onClick={handleCommitment}
-                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs hover:shadow transition-all"
+                    aria-label="Assumir compromisso formal de apoio popular e consumo agroecológico"
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-red-700 hover:bg-red-800 focus:outline-hidden focus:ring-2 focus:ring-red-700 focus:ring-offset-2 rounded-xl shadow-xs hover:shadow transition-all"
                   >
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4" aria-hidden="true" />
                     <span>Assumir Compromisso de Apoio Popular</span>
                   </button>
                 ) : (
-                  <div className="p-4 rounded-xl bg-emerald-100/70 border border-emerald-300 text-emerald-950 text-xs flex items-center justify-between gap-3">
+                  <div 
+                    role="status" 
+                    aria-live="assertive"
+                    className="p-4 rounded-xl bg-emerald-100/70 border border-emerald-300 text-emerald-950 text-xs flex items-center justify-between gap-3"
+                  >
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0" />
+                      <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0" aria-hidden="true" />
                       <span>
                         <b>Compromisso Solidário Ativado!</b> Obrigado por fortalecer a produção sem veneno e a soberania alimentar.
                       </span>
                     </div>
                     <button
                       onClick={onGoToMarkets}
-                      className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors"
+                      aria-label="Encontrar feira agroecológica mais próxima no mapa"
+                      className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors focus:outline-hidden focus:ring-2 focus:ring-emerald-700"
                     >
                       Encontrar Feira
                     </button>

@@ -251,17 +251,24 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
   }, [selectedPillar, searchQuery]);
 
   return (
-    <section id="beneficios-mst" className="py-16 bg-[#FAF8F5] border-b border-stone-200">
+    <section 
+      id="beneficios-mst" 
+      aria-labelledby="benefits-heading"
+      className="py-16 bg-[#FAF8F5] border-b border-stone-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-red-700 uppercase tracking-wider mb-2">
-            <Sparkles className="w-4 h-4 text-red-700" />
+            <Sparkles className="w-4 h-4 text-red-700" aria-hidden="true" />
             <span>Impacto Social, Ecológico e Econômico</span>
             <span aria-hidden="true">·</span>
             <span>Reforma Agrária Popular</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
+          <h2 
+            id="benefits-heading"
+            className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance"
+          >
             Como o MST Beneficia Toda a Sociedade Brasileira
           </h2>
           <p className="mt-3 text-base text-stone-600 leading-relaxed font-sans">
@@ -272,28 +279,44 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
         </div>
 
         {/* Filter Bar with Search */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 shadow-xs mb-10 space-y-4">
+        <section 
+          aria-label="Filtros e pesquisa de benefícios"
+          className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 shadow-xs mb-10 space-y-4"
+        >
           <div className="flex flex-col md:flex-row items-center gap-4 justify-between">
             {/* Search Input */}
             <div className="relative w-full md:max-w-md">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
+              <label htmlFor="benefits-search-input" className="sr-only">
+                Buscar benefícios do MST por palavra-chave
+              </label>
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" aria-hidden="true" />
               <input
-                type="text"
+                id="benefits-search-input"
+                type="search"
+                role="searchbox"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar por benefício (ex: arroz, árvores, escolas, doações)..."
+                aria-label="Buscar benefícios por palavra-chave como arroz, árvores, escolas ou doações"
                 className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm bg-[#FAF8F5] border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 text-stone-800 placeholder:text-stone-400"
               />
             </div>
 
             {/* Results Counter */}
-            <div className="text-xs text-stone-500 font-medium self-end md:self-center">
+            <div 
+              aria-live="polite"
+              className="text-xs text-stone-500 font-medium self-end md:self-center"
+            >
               Mostrando <span className="font-bold text-stone-900 tabular-nums">{filteredBenefits.length}</span> benefícios comprovados
             </div>
           </div>
 
           {/* Pillar Buttons */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-100">
+          <div 
+            role="tablist" 
+            aria-label="Filtrar benefícios por pilar temático"
+            className="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-100"
+          >
             {pillars.map((p) => {
               const Icon = p.icon;
               const isActive = selectedPillar === p.id;
@@ -303,31 +326,40 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
               return (
                 <button
                   key={p.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="benefits-results-grid"
                   onClick={() => setSelectedPillar(p.id)}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 ${
+                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-red-700 ${
                     isActive
                       ? 'bg-red-700 text-white shadow-xs'
                       : 'bg-stone-50 text-stone-700 border border-stone-200 hover:bg-stone-100'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-500'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-500'}`} aria-hidden="true" />
                   <span>{p.label}</span>
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full tabular-nums font-mono font-bold ${
                     isActive ? 'bg-red-900/60 text-red-100' : 'bg-stone-200 text-stone-600'
-                  }`}>
+                  }`} aria-label={`${count} itens`}>
                     {count}
                   </span>
                 </button>
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div 
+          id="benefits-results-grid"
+          role="list"
+          aria-label="Grade de benefícios comprovados da Reforma Agrária"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
+        >
           {filteredBenefits.map((item) => (
-            <div
+            <article
               key={item.id}
+              role="listitem"
               className="bg-white rounded-3xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 hover:shadow-sm transition-all"
             >
               <div className="space-y-4">
@@ -357,7 +389,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 {/* Real Impact */}
                 <div className="p-3.5 bg-[#FAF8F5] rounded-xl border border-stone-200 text-xs text-stone-800 space-y-1">
                   <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" aria-hidden="true" />
                     <span>Impacto Direto na Vida do Cidadão</span>
                   </div>
                   <div className="text-stone-700 leading-relaxed text-[11px]">
@@ -373,20 +405,23 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
 
               {/* Source Audit Footnote */}
               <div className="pt-4 mt-4 border-t border-stone-100 text-[10px] text-stone-400 font-mono">
-                {item.source}
+                Fonte: {item.source}
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
         {/* Practical Comparative Matrix: Reforma Agrária vs. Latifúndio Monocultor */}
-        <div className="bg-white rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-sm mb-12">
+        <section 
+          aria-labelledby="matrix-heading"
+          className="bg-white rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-sm mb-12"
+        >
           <div className="max-w-2xl mb-8">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-stone-500 mb-1">
-              <Scale className="w-4 h-4 text-red-700" />
+              <Scale className="w-4 h-4 text-red-700" aria-hidden="true" />
               <span>Comparativo Concreto</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+            <h3 id="matrix-heading" className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Reforma Agrária Popular vs. Latifúndio Monocultor
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mt-2 font-sans">
@@ -395,21 +430,24 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-stone-700 border-collapse">
+            <table 
+              aria-label="Comparativo estrutural entre Reforma Agrária Popular e Latifúndio Monocultor"
+              className="w-full text-left text-xs text-stone-700 border-collapse"
+            >
               <thead>
                 <tr className="border-b-2 border-stone-200 text-stone-900 font-serif text-sm">
-                  <th className="py-3 px-4 font-bold">Critério / Dimensão</th>
-                  <th className="py-3 px-4 font-bold text-red-700 bg-red-50/50 rounded-t-xl">
+                  <th scope="col" className="py-3 px-4 font-bold">Critério / Dimensão</th>
+                  <th scope="col" className="py-3 px-4 font-bold text-red-700 bg-red-50/50 rounded-t-xl">
                     🌱 Reforma Agrária Popular (MST)
                   </th>
-                  <th className="py-3 px-4 font-bold text-stone-600 bg-stone-100/70 rounded-t-xl">
+                  <th scope="col" className="py-3 px-4 font-bold text-stone-600 bg-stone-100/70 rounded-t-xl">
                     🏭 Latifúndio Monocultor / Agroquímico
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100">
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Destino da Produção</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Destino da Produção</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Alimentos para o prato do povo brasileiro (arroz, feijão, hortaliças, frutas e mandioca).
                   </td>
@@ -419,7 +457,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 </tr>
 
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Uso de Agrotóxicos</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Uso de Agrotóxicos</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Agroecologia, adubação verde biológica e certificação orgânica sem veneno.
                   </td>
@@ -429,7 +467,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 </tr>
 
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Geração de Emprego e Renda</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Geração de Emprego e Renda</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Gera até 15 vezes mais empregos por hectare cultivado, fixando a família no campo com dignidade.
                   </td>
@@ -439,7 +477,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 </tr>
 
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Preservação Ambiental & Água</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Preservação Ambiental & Água</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Recuperação de nascentes, viveiros populares de mudas e sistemas agroflorestais consorciados.
                   </td>
@@ -449,7 +487,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 </tr>
 
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Sementes</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Sementes</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Sementes crioulas ancestrais preservadas em bancos comunitários (Rede Bionatur).
                   </td>
@@ -459,7 +497,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
                 </tr>
 
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-stone-900">Educação e Comunidade</td>
+                  <th scope="row" className="py-3.5 px-4 font-semibold text-stone-900 text-left">Educação e Comunidade</th>
                   <td className="py-3.5 px-4 bg-red-50/30 font-medium text-emerald-900">
                     Construção de escolas públicas nos assentamentos, alfabetização de adultos e centros comunitários.
                   </td>
@@ -470,7 +508,7 @@ export const MSTBenefits: React.FC<MSTBenefitsProps> = ({ onGoToMarkets, onGoToR
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
 
         {/* Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

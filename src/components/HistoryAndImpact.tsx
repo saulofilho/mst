@@ -26,17 +26,24 @@ export const HistoryAndImpact: React.FC = () => {
   const currentMilestone = HISTORICAL_MILESTONES[selectedMilestoneIndex];
 
   return (
-    <section id="historia-conquistas" className="py-16 bg-white border-b border-stone-200">
+    <section 
+      id="historia-conquistas" 
+      aria-labelledby="history-heading"
+      className="py-16 bg-white border-b border-stone-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 text-xs font-semibold text-red-700 tracking-wider uppercase mb-2">
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-4 h-4" aria-hidden="true" />
             <span>40 Anos de Luta e Produção</span>
             <span aria-hidden="true">·</span>
             <span>Reforma Agrária Popular</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance">
+          <h2 
+            id="history-heading"
+            className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight text-balance"
+          >
             História & Fatos Positivos: Alimentando o Povo Brasileiro
           </h2>
           <p className="mt-3 text-base text-stone-600 leading-relaxed">
@@ -50,12 +57,16 @@ export const HistoryAndImpact: React.FC = () => {
         <div className="mb-16">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <h3 className="text-xl font-serif font-bold text-stone-900 flex items-center gap-2">
-              <Award className="w-5 h-5 text-red-700" />
+              <Award className="w-5 h-5 text-red-700" aria-hidden="true" />
               <span>Conquistas e Números Comprovados</span>
             </h3>
 
             {/* Filter buttons */}
-            <div className="flex flex-wrap items-center gap-1.5 p-1 bg-stone-100 rounded-lg">
+            <div 
+              role="tablist" 
+              aria-label="Filtrar fatos comprovados por categoria"
+              className="flex flex-wrap items-center gap-1.5 p-1 bg-stone-100 rounded-lg"
+            >
               {[
                 { id: 'todos', label: 'Todos os Fatos' },
                 { id: 'alimento', label: 'Alimentos & Grãos' },
@@ -65,8 +76,11 @@ export const HistoryAndImpact: React.FC = () => {
               ].map((btn) => (
                 <button
                   key={btn.id}
+                  role="tab"
+                  aria-selected={selectedFactCategory === btn.id}
+                  aria-controls="facts-grid-list"
                   onClick={() => setSelectedFactCategory(btn.id)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 ${
+                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-red-700 ${
                     selectedFactCategory === btn.id
                       ? 'bg-white text-stone-900 shadow-xs font-semibold'
                       : 'text-stone-600 hover:text-stone-900'
@@ -78,10 +92,16 @@ export const HistoryAndImpact: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            id="facts-grid-list"
+            role="list"
+            aria-label="Lista de fatos e conquistas auditadas da Reforma Agrária"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {filteredFacts.map((fact) => (
-              <div
+              <article
                 key={fact.id}
+                role="listitem"
                 className="bg-[#FAF8F5] rounded-2xl border border-stone-200 p-6 flex flex-col justify-between hover:border-stone-300 transition-all shadow-xs"
               >
                 <div>
@@ -111,16 +131,19 @@ export const HistoryAndImpact: React.FC = () => {
                 <div className="pt-4 mt-4 border-t border-stone-200/80 text-[11px] text-stone-500 font-mono">
                   {fact.citation}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
 
         {/* Feature Spotlight: Arroz Orgânico & Agrofloresta (2-Column Balance) */}
-        <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-stone-900 text-white rounded-3xl overflow-hidden shadow-md">
+        <section 
+          aria-label="Destaque histórico: Maior produtor de arroz orgânico da América Latina"
+          className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-stone-900 text-white rounded-3xl overflow-hidden shadow-md"
+        >
           <div className="lg:col-span-6 p-8 sm:p-12 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-700/80 text-white text-xs font-semibold">
-              <Wheat className="w-3.5 h-3.5" />
+              <Wheat className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Destaque Histórico Global</span>
             </div>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold leading-tight">
@@ -146,35 +169,42 @@ export const HistoryAndImpact: React.FC = () => {
           <div className="lg:col-span-6 h-full min-h-[320px] lg:min-h-[460px] relative">
             <img
               src={heroAgriculture}
-              alt="Colheita agroecológica do arroz orgânico"
+              alt="Colheita agroecológica do arroz orgânico nos assentamentos do Rio Grande do Sul"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent lg:hidden" aria-hidden="true" />
           </div>
-        </div>
+        </section>
 
         {/* Interactive Timeline of Milestones */}
-        <div>
+        <section aria-labelledby="timeline-heading">
           <div className="mb-6">
             <div className="flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider">
-              <Calendar className="w-4 h-4 text-red-700" />
+              <Calendar className="w-4 h-4 text-red-700" aria-hidden="true" />
               <span>Linha do Tempo Interativa</span>
             </div>
-            <h3 className="text-2xl font-serif font-bold text-stone-900 mt-1">
+            <h3 id="timeline-heading" className="text-2xl font-serif font-bold text-stone-900 mt-1">
               Quatro Décadas de Luta pela Terra e Justiça Social
             </h3>
           </div>
 
           {/* Timeline Navigation Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none border-b border-stone-200 mb-8">
+          <div 
+            role="tablist"
+            aria-label="Selecione o marco histórico na linha do tempo"
+            className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none border-b border-stone-200 mb-8"
+          >
             {HISTORICAL_MILESTONES.map((m, idx) => {
               const isActive = selectedMilestoneIndex === idx;
               return (
                 <button
                   key={m.year}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="timeline-detail-panel"
                   onClick={() => setSelectedMilestoneIndex(idx)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-red-700 ${
                     isActive
                       ? 'bg-red-700 text-white shadow-sm'
                       : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -189,7 +219,13 @@ export const HistoryAndImpact: React.FC = () => {
 
           {/* Active Milestone Card */}
           {currentMilestone && (
-            <div className="bg-[#FAF8F5] rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-xs">
+            <div 
+              id="timeline-detail-panel"
+              role="region"
+              aria-live="polite"
+              aria-label={`Marco histórico do ano ${currentMilestone.year}: ${currentMilestone.title}`}
+              className="bg-[#FAF8F5] rounded-3xl border border-stone-300 p-6 sm:p-10 shadow-xs"
+            >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <div className="lg:col-span-8 space-y-4">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500">
@@ -216,7 +252,7 @@ export const HistoryAndImpact: React.FC = () => {
                   </p>
 
                   <div className="p-4 rounded-xl bg-white border border-stone-200 text-xs text-stone-800 flex items-start gap-3 mt-4">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" aria-hidden="true" />
                     <div>
                       <span className="font-bold text-stone-900">Marco Histórico:</span>{' '}
                       <span>{currentMilestone.keyPoint}</span>
@@ -226,7 +262,7 @@ export const HistoryAndImpact: React.FC = () => {
 
                 <div className="lg:col-span-4 bg-white rounded-2xl border border-stone-200 p-5 space-y-4">
                   <div className="text-xs font-bold text-stone-900 uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-600" />
+                    <Sparkles className="w-4 h-4 text-amber-600" aria-hidden="true" />
                     <span>Princípio da Reforma Agrária</span>
                   </div>
                   <p className="text-xs text-stone-600 leading-relaxed italic">
@@ -241,7 +277,8 @@ export const HistoryAndImpact: React.FC = () => {
                           prev > 0 ? prev - 1 : HISTORICAL_MILESTONES.length - 1
                         )
                       }
-                      className="text-stone-600 hover:text-stone-900 font-medium"
+                      aria-label="Ver marco histórico do ano anterior"
+                      className="text-stone-600 hover:text-stone-900 font-medium focus-visible:outline-2 focus-visible:outline-stone-700 rounded p-1"
                     >
                       ← Ano anterior
                     </button>
@@ -251,7 +288,8 @@ export const HistoryAndImpact: React.FC = () => {
                           prev < HISTORICAL_MILESTONES.length - 1 ? prev + 1 : 0
                         )
                       }
-                      className="text-red-700 hover:text-red-900 font-bold"
+                      aria-label="Ver próximo marco histórico"
+                      className="text-red-700 hover:text-red-900 font-bold focus-visible:outline-2 focus-visible:outline-red-700 rounded p-1"
                     >
                       Próximo marco →
                     </button>
@@ -260,7 +298,7 @@ export const HistoryAndImpact: React.FC = () => {
               </div>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </section>
   );

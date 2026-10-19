@@ -147,12 +147,13 @@ npm run deploy
 
 ## 📱 Funcionalidades da Aplicação
 
-* 🗺️ **Mapa Interativo**:
-  - Filtros por estado e tipo de ponto (Armazém, Feira, Cesta, Cooperativa).
-  - Cálculo de distância via GPS (API Geolocation do navegador) pelo algoritmo de Haversine.
-  - Traçado de rota direto no Google Maps.
-  - Link direto para o WhatsApp dos Armazéns.
-  - Salvamento de locais favoritos no `localStorage`.
+* 🗺️ **Mapa Interativo & Busca Automática por Proximidade**:
+  - **Busca Automática via Geolocalização**: Ao carregar o mapa, o sistema detecta automaticamente as coordenadas do usuário (via API Geolocation do navegador) e reordena instantaneamente todos os pontos de venda pela menor distância.
+  - **Destaque Especial das Feiras do MST Mais Próximas**: Painel de destaque (*featured strip*) com cartões dedicados para a **Feira Agroecológica Mais Próxima** e o **Armazém Mais Próximo**, informando a quilometragem exata, horários de funcionamento, botão de foco no mapa e rota no Google Maps.
+  - **Identificação Visual no Mapa Leaflet**: Marcadores com efeito de pulso de radar (`radar-pulse`), badges flutuantes (`🌾 Feira Mais Próxima` e `⭐ Ponto Mais Próximo`) e pino especial do usuário ("Você está aqui").
+  - **Filtro de Raio de Proximidade & Simulador**: Opção para filtrar pontos em um raio de até 50 km e seletores rápidos de capitais de referência (SP, RJ, MG, RS, PR, DF, BA, PE, CE) caso o GPS esteja indisponível.
+  - **Filtros por Categoria & Estado**: Armazéns do Campo, Feiras Periódicas, Cestas Agroecológicas e Cooperativas.
+  - **Ações Rápidas**: Traçado de rota direto no Google Maps, link oficial para WhatsApp e salvamento de favoritos no `localStorage`.
 
 * ✨ **Painel Completo de Benefícios do MST (`MSTBenefits`)**:
   - 15 benefícios concretos documentados e auditados com fontes oficiais (FAO/ONU, IBGE, CONAB, MEC, PRONERA, IRGA, Embrapa, Observatório do Clima).
@@ -181,9 +182,22 @@ npm run deploy
   - Consulta de andamento de protocolos.
   - Guia emergencial de segurança no campo e telefones oficiais.
 
-* 📬 **Boletim Popular da Terra (Newsletter)**:
-  - Assinatura direta no rodapé para receber o calendário de feiras, novas safras de arroz orgânico, receitas sazonais e informes das conquistas camponesas.
-  - Validação de e-mail e persistência local para controle de inscrição.
+* 📬 **Componente Dedicado de Newsletter no Rodapé (`FooterNewsletter.tsx`)**:
+  - **Filtros por Temas de Interesse**: Permite ao usuário selecionar tópicos específicos:
+    - 🗺️ *Novas Feiras & Armazéns do MST*: Alertas de novas feiras na cidade, datas periódicas e armazéns agroecológicos.
+    - 🎪 *Eventos & Festivais Culturais*: Feiras Nacionais da Reforma Agrária, Festas da Colheita, cursos da ENFF e mutirões de plantio.
+    - 📰 *Notícias & Conquistas*: Conquistas de terra, democratização da produção, direitos humanos e decisões jurídicas.
+    - 🍲 *Receitas & Safras da Estação*: Informes sobre safras e culinária camponesa saudável.
+  - **Segmentação Regional**: Seleção de estado (UF) para notificações contextualizadas do território local.
+  - **Configuração de Frequência**: Quinzenal, Semanal ou Apenas Alertas de Feiras.
+  - **Prévia de Edição de Exemplo**: Modal acessível que exibe um exemplo realista do boletim em circulação.
+  - **Gerenciamento de Assinatura**: Painel para editar preferências ou cancelar inscrição a qualquer momento, com persistência local.
+
+* ♿ **Acessibilidade Completa (WCAG / WAI-ARIA)**:
+  - Marco inicial com link direto para pular navegação (*Skip to main content*).
+  - Marcos semânticos padrão HTML5 e ARIA (`role="banner"`, `role="navigation"`, `role="main"`, `role="contentinfo"`, `role="region"`, `role="tablist"`, `role="dialog"`).
+  - Diálogos e modais com captura de teclado, fechamento com tecla Escape (`Esc`), `aria-modal="true"` e foco acessível.
+  - Campos de busca, filtros, sliders e formulários acompanhados de rótulos explícitos (`<label htmlFor>` / `aria-label`), estados interativos (`aria-expanded`, `aria-selected`, `aria-pressed`, `aria-checked`), e alertas dinâmicos (`aria-live="polite"` e `aria-live="assertive"`).
 
 ---
 
